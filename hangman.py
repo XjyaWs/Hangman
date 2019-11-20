@@ -1,7 +1,6 @@
 import time
 class User_interface():
     failed_number = 0
-    complete_or_not = False
 
     def __init__(self, word_given):
         self.stages = ["",
@@ -15,6 +14,7 @@ class User_interface():
                        ]
 
         self.board = list('_'*len(word_given))
+        self.complete_or_not = False
         print('Board:', end='')
         for letter in self.board:
             print('{} '.format(letter), end='')
@@ -62,7 +62,6 @@ class User_interface():
         if '_' not in self.board:
             print('Success!')
             self.complete_or_not = True
-
 
 
 
