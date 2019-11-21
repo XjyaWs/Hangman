@@ -1,11 +1,11 @@
 import time
 import pyxel
+import string
 
 class User_interface():
-    failed_number = 0
 
     def __init__(self, word_given):
-        pyxel.init(100, 80)
+        pyxel.init(180, 80)
         pyxel.load('hangman.pyxres')
         self.head = (0, 0)
         self.body1 = (16, 0)
@@ -13,23 +13,37 @@ class User_interface():
         self.body3 = (0 , 16)
         self.leg1 = (48, 0)
         self.leg2 = (16, 16)
-        self.stages = ["",
-                       " ",
-                       "| ",
-                       "|----| ",
-                       "|    0 ",
-                       "|   /|\ ",
-                       "|   / \ ",
-                       "| "
-                       ]
-
+        self.updated_word = list(word_given)
         self.board = list('_'*len(word_given))
         self.complete_or_not = False
+        self.failed = False
+        self.failed_number = 0
+
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        if pyxel.btnp(pyxel.KEY_Q):
+        if pyxel.btnp(pyxel.KEY_BACKSPACE):
             pyxel.quit()
+        for index, letter in enumerate(string.ascii_lowercase):
+            if pyxel.btnp(index + 18):
+                pyxel.text(60, 40, letter, 7)
+                self.update_word(letter)
+        if pyxel.btnp(pyxel.KEY_ENTER):
+            if not self.failed:
+                pyxel.text(60, 60, 'Correct!', 7)
+            else:
+                pyxel.text(60, 60, 'Wrong!', 7)
+
+    def update_word(self, guessed_letter):
+        if guessed_letter in self.updated_word:
+            for index, letter in enumerate(self.updated_word):
+                if letter == guessed_letter:
+                    self.updated_word[index] = '$'
+                    self.board[index] = letter
+            self.failed = False
+            self.failed_number += 1
+        else:
+            self.failed = True
 
     def draw(self):
         pyxel.blt(15, 25, 0, self.head[0], self.head[1], 16, 16)
@@ -37,11 +51,7 @@ class User_interface():
         pyxel.blt(15, 25 + 32, 0, self.leg1[0], self.leg1[1], 16, 16)
         text = ''.join(self.board)
         pyxel.text(15, 10, text, 7)
-        pyxel.show()
-
-    def update_input(self):
-        guessed_letter = input('Please guess a letter: \n')
-        return guessed_letter
+        pyxel.text(60, 20, 'Please guess a letter:', 7)
 
 
     def update_interface(self, data):
