@@ -17,7 +17,9 @@ class User_interface():
         self.board = list('_'*len(word_given))
         self.complete_or_not = False
         self.failed = False
+        self.answer = ''
         self.failed_number = 0
+        
 
         pyxel.run(self.update, self.draw)
 
@@ -26,7 +28,7 @@ class User_interface():
             pyxel.quit()
         for index, letter in enumerate(string.ascii_lowercase):
             if pyxel.btnp(index + 18):
-                pyxel.text(60, 40, letter, 7)
+                self.answer = letter
                 self.update_word(letter)
         if pyxel.btnp(pyxel.KEY_ENTER):
             if not self.failed:
@@ -60,7 +62,7 @@ class User_interface():
         pyxel.text(60, 20, 'Please guess a letter:', 7)
 
         # answer update
-
+        pyxel.text(60, 40, self.answer, 7)
         
         #result update
 
