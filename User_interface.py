@@ -46,12 +46,23 @@ class User_interface():
             self.failed = True
 
     def draw(self):
+        
+        # Hangman update
         pyxel.blt(15, 25, 0, self.head[0], self.head[1], 16, 16)
         pyxel.blt(15, 25 + 16, 0, self.body1[0], self.body1[1], 16, 16)
         pyxel.blt(15, 25 + 32, 0, self.leg1[0], self.leg1[1], 16, 16)
+
+        # Board update
         text = ''.join(self.board)
         pyxel.text(15, 10, text, 7)
+
+        # Input update
         pyxel.text(60, 20, 'Please guess a letter:', 7)
+
+        # answer update
+
+        
+        #result update
 
 
     def update_interface(self, data):
