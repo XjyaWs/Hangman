@@ -1,4 +1,4 @@
-import hangman
+import User_interface
 import word
 
 words_list = ['altitude', 'attitude', 'curtain', 'cat']
@@ -7,7 +7,7 @@ words_list = ['altitude', 'attitude', 'curtain', 'cat']
 class Hangman:
     def __init__(self, word_received):
         self.word = word.Word_hangman(word_received)
-        self.interface = hangman.User_interface(word_received)
+        self.interface = User_interface.User_interface(word_received)
 
     def start_game(self):
         while not self.interface.complete_or_not:
