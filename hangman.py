@@ -2,7 +2,7 @@ import pyxel
 import string
 
 
-class Hangman_game:
+class HangmanGame:
 
     def __init__(self, words_list):
         pyxel.init(180, 80)
@@ -32,7 +32,6 @@ class Hangman_game:
         self.failed_number = 0
         self.win = False
         self.lose = False
-        self.input_able = True
 
         pyxel.run(self.update, self.draw)
 
@@ -66,19 +65,17 @@ class Hangman_game:
             else:
                 # update result
                 if pyxel.btnp(pyxel.KEY_ENTER) and not self.completed:
+                    self.update_word(self.answer)
                     self.show_result = True
                     self.update_board = True
-                    self.input_able = TrueSSS
                     if self.failed:
                         self.failed_number += 1
 
         # update answer
         for index, letter in enumerate(string.ascii_lowercase):
-            if pyxel.btnp(index + 18) and self.input_able:
-                self.input_able = False
+            if pyxel.btnp(index + 18):
                 self.show_result = False
                 self.answer = letter
-                self.update_word(letter)
                 self.show_answer = True
                 self.update_board = False
 
@@ -149,5 +146,3 @@ class Hangman_game:
         pyxel.blt(15, 25, 0, head_set[0], head_set[1], 16, 16)
         pyxel.blt(15, 25 + 16, 0, body_set[0], body_set[1], 16, 16)
         pyxel.blt(15, 25 + 32, 0, leg_set[0], leg_set[1], 16, 16)
-
-Hangman_game(['cat'])
