@@ -6,7 +6,7 @@ class HangmanGame:
 
     def __init__(self, words_list):
         pyxel.init(180, 80)
-        pyxel.load('hangman.pyxres')
+        pyxel.load("assets/hangman.pyxres")
         self.words_list = words_list
         self.words_count = 0
 
